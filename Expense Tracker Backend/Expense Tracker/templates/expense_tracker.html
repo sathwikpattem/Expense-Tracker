@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MontSerrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/expense_tracker.css">
+    <title>Expense Tracker</title>
+</head>
+
+<body>
+
+    <div class="full_body">
+        <div class="title">Expense Tracker</div>
+        <div class="container">        <div class="expenses">
+            <a href="#" class="buttons" onclick="add_expense_page()">Add Expense</a>
+            
+            <!-- Add Expense Form - Moved to top -->
+            <form action="#" class="add-new-expense">
+                <span>
+                    <label for="amount">Amount: </label>
+                    <input type="text" class="form-input" name="amount" placeholder="How much?">
+                </span>
+                <span>
+                    <label for="category">Category:</label>
+                    <select name="category" id="category" class="form-input">
+                        <option value="Food"> Food</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Groceries">Groceries</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="others">Others</option>
+                    </select>
+                </span>
+                <span>
+                    <label for="date">Date:</label>
+                    <input type="date" class="form-input" name="date" placeholder="dd-mm-yyyy">
+                </span>
+                <span>
+                    <label for="note">Note:</label>
+                    <input type="text" class="form-input" name="note" placeholder="what did you spend on?">
+                </span>
+                <span>
+                    <a href="#" class="buttons" style="font-size:15px;padding:8px 10px;"
+                        onclick="add_expense()">Submit</a>
+                </span>
+            </form>
+            
+            <div class="available-expenses">
+                <div class="sub-title">Expenses</div>
+                <table class="expense-table" cellspacing="10px" cellpadding="8px 20px">
+                    <tr style="border-bottom: 1px solid white;">
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Note</th>
+                        <th>Actions</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="category">
+            <a href="#" class="buttons" onclick="add_category_page()">Add Category</a>
+            <a href="#" class="buttons" onclick="toggle_analytics()">Analytics</a>
+            
+            <!-- Add Category Form - Moved to top -->
+            <form action="#" class="add-category">
+                <span>
+                    <label for="category">Category Name:</label>
+                    <input type="text" class="form-input" name="new-category" placeholder="Enter category name">
+                </span>
+                <span>
+                    <a href="#" class="buttons" onclick="add_category()">Submit</a>
+                </span>
+            </form>
+            
+            <div class="sub-title">
+                Categories
+            </div>
+            <div class="available-categories">
+                <span>Food <span class="sum"></span></span>
+                <span>Travel <span class="sum"></span></span>
+                <span>Groceries <span class="sum"></span></span>
+                <span>Entertainment <span class="sum"></span></span>
+                <span>Others <span class="sum"></span></span>
+            </div>
+        </div>
+        
+        <!-- Analytics Dashboard -->
+        <div class="analytics-dashboard" style="display: none;">
+            <div class="analytics-header">
+                <h2>📊 Expense Analytics Dashboard</h2>
+                <a href="#" class="buttons" onclick="toggle_analytics()">✕ Close</a>
+            </div>
+            
+            <div class="analytics-content">
+                <!-- Summary Cards -->
+                <div class="analytics-summary">
+                    <div class="summary-card">
+                        <h3>💰 Total Expenses</h3>
+                        <div class="summary-value" id="total-expenses">$0.00</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>📅 Daily Average</h3>
+                        <div class="summary-value" id="daily-average">$0.00</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>📊 Weekly Average</h3>
+                        <div class="summary-value" id="weekly-average">$0.00</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>📈 Monthly Average</h3>
+                        <div class="summary-value" id="monthly-average">$0.00</div>
+                    </div>
+                </div>
+                
+                <!-- Charts Section -->
+                <div class="analytics-charts">
+                    <div class="chart-container">
+                        <h3>📊 Monthly Expenses (Last 6 Months)</h3>
+                        <div class="chart" id="monthly-chart">
+                            <div class="chart-placeholder">Loading chart data...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>📅 Weekly Expenses (Last 8 Weeks)</h3>
+                        <div class="chart" id="weekly-chart">
+                            <div class="chart-placeholder">Loading chart data...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>🏷️ Top Categories</h3>
+                        <div class="chart" id="category-chart">
+                            <div class="chart-placeholder">Loading chart data...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Tables -->
+                <div class="analytics-tables">
+                    <div class="table-container">
+                        <h3>📊 Monthly Breakdown</h3>
+                        <table class="analytics-table" id="monthly-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Total Amount</th>
+                                    <th>Expenses</th>
+                                    <th>Average</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-container">
+                        <h3>📅 Weekly Breakdown</h3>
+                        <table class="analytics-table" id="weekly-table">
+                            <thead>
+                                <tr>
+                                    <th>Week</th>
+                                    <th>Total Amount</th>
+                                    <th>Expenses</th>
+                                    <th>Average</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/expense_tracker_api.js"></script>
+
+</html>
